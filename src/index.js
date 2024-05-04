@@ -27,8 +27,11 @@ app
     let username = req.cookies.username;
     let logged_in = username ? true : false;
     let login_failed = req.query.loginfailed;
-    console.log(req.query);
     res.render("index", { logged_in, login_failed, username });
+  })
+  .get("/story/:storyId", async (req, res) => {
+    const story_id = req.params.storyId;
+    res.render("index_story", { story_id });
   })
   .post("/login", async (req, res) => {
     const { password, username } = req.body;
