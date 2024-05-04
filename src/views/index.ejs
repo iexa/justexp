@@ -11,7 +11,7 @@
 <body>
   <%- include("index_story"); %>
     <%# welcome.ejs -%>
-      <% if(logged_in) { -%>
+      <% if(locals.logged_in ) { -%>
         <div class="login-page">
           <div class="form">
             <h2>Hello <%= username %>,<br> welcome back. </h2>
@@ -30,7 +30,7 @@
                   <input type="password" placeholder="password" name="password" />
                   <button>login</button>
                   <p class="message">
-                    <% if(login_failed) { -%>
+                    <% if(locals.login_failed) { -%>
                       <h4 class="warning">Try any username & letmein for password...</h4>
                       <% } -%>
                         Not registered? <a href="/logout">Create an account</a>

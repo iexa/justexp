@@ -31,7 +31,7 @@ app
   })
   .get("/story/:storyId", async (req, res) => {
     const story_id = req.params.storyId;
-    res.render("index_story", { story_id });
+    res.render("index", { story_id });
   })
   .post("/login", async (req, res) => {
     const { password, username } = req.body;
@@ -40,6 +40,7 @@ app
         maxAge: 3600 * 1000,
         httpOnly: true,
       });
+ 
       res.redirect("/");
     } else {
       res.redirect("/?loginfailed=1");
