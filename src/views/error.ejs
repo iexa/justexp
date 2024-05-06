@@ -1,0 +1,12 @@
+<%- include("_head") %>
+  <div class="container">
+    <h3>Error: </h3>
+    <div class="border-bottom text-danger">
+      <%= message %>
+    </div>
+    <h2 class="">
+      <%= error.status %>
+    </h2>
+    <pre><%= error.stack %></pre>
+  </div>
+  <%- include("_foot") %>

@@ -8,3 +8,8 @@ export const getAbsolutePath = (importMetaUrl, ...relativePaths) => {
   const absolutePath = join(importMetaDirectoryPath, ...relativePaths);
   return absolutePath;
 };
+
+export const generateApiUrl = (
+  midsection
+) => `${process.env.TMDB_BASE_URL}/${midsection}?\
+api_key=${process.env.TMDB_API_KEY}`;

@@ -1,12 +1,18 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1></h1>
-    </div>
-    <div class="col-sm-12">
-
-      <h1>Hello!</h1>
-
+<%- include("_head") -%>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Now playing</h1>
+      </div>
+      <% data.forEach((movie)=> {-%>
+        <div class="col col-sm-4 col-md-3 poster">
+          <%# id, overview, poster_path, release_date, backdrop_path, ...-%>
+            <a href="/movie/<%= movie.id %>/<%= movie.title %>">
+              <img alt="<%= movie.title %>" src="<%= url_base_img + movie.poster_path %>">
+            </a>
+            <%= movie.title -%>
+        </div>
+        <% }) -%>
     </div>
   </div>
-</div>
+  <%- include("_foot") -%>

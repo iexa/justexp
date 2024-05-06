@@ -1,10 +1,12 @@
 import express from "express";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
-import { getAbsolutePath } from "./utils/esm-path.js"; // from node21 not needed
+import { getAbsolutePath } from "./utils/index.js"; // from node21 not needed
 import debug from "debug";
 import logger from "morgan";
 import createError from "http-errors";
+
+import indexRoute from "./route_index.js";
 
 const dbg = debug("app:srv");
 
@@ -14,7 +16,8 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        "script-src": ["'self'", "cdnjs.cloudflare.com"],
+        "script-src": ["'self'", "*.cloudflare.com"],
+        "img-src": ["'self'", "data:", "*.tmdb.org"],
       },
     },
   })
@@ -30,9 +33,7 @@ app.set("view engine", "ejs");
 
 // MAIN routes
 //--------------
-app.get("/", async (req, res) => {
-  res.render("index", {});
-});
+app.use("/", indexRoute);
 
 // ERROR HANDLERS
 app.use((req, res, next) => next(createError(404)));
@@ -52,9 +53,7 @@ srv.onError = (error) => {
   if (error.syscall !== "listen") {
     throw error;
   }
-
-  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
-
+  let bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case "EACCES":

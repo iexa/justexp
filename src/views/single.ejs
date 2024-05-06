@@ -1,43 +1,58 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-8 col-sm-offset-2 text-center">
-      <h1 class="single-movie-title"></h1>
-
-      <h3 class="single-movie-title"></h3>
-
-      <img src="" />
-
-      <p class="overview-header">Movie Synopsis: <span class="single-movie-overview">
-
-        </span></p>
-    </div>
-  </div>
-</div>
-
-<!-- Button trigger modal -->
-<div class="col-sm-12 text-center">
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-    More Details
-  </button>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-            aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Movie Information</h4>
-      </div>
-      <div class="modal-body">
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+<%- include("_head") -%>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12  text-center">
+        <h1 class="single-movie-title">
+          <%= data.title %>
+        </h1>>
+        <h3 class="single-movie-title">
+          <%= data.tagline %>
+        </h3>
+        <a title="Open movie's website" href="<%= data.homepage %>" target="_blank">
+          <img alt="<%= data.title %>" src="<%= url_base_img + data.poster_path %>" />
+        </a>
+        <p class="overview-header">Movie Synopsis:
+          <span class="single-movie-overview">
+            <%= data.overview %>
+          </span>
+        </p>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- Button trigger modal -->
+  <div class="col-sm-12 text-center">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailsModal">
+      More details
+    </button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Movie Information</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Reelase date: <%= data.release_date %>
+          </p>
+          <p>Production companies:
+          <ul>
+            <% data.production_companies.map(comp=> { %>
+              <li>
+                <%= comp.name %>
+              </li>
+              <% }) -%>
+          </ul>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include("_foot") -%>
