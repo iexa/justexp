@@ -1,45 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1></h1>
+    </div>
+    <div class="col-sm-12">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/css/login.css">
-  <title>Hello from intellij!</title>
-</head>
+      <h1>Hello!</h1>
 
-<body>
-  <%- include("index_story"); %>
-    <%# welcome.ejs -%>
-      <% if(locals.logged_in ) { -%>
-        <div class="login-page">
-          <div class="form">
-            <h2>Hello <%= username %>,<br> welcome back. </h2>
-            <a href="/story/1">story 1</a>
-            <a href="/story/2">story 2</a>
-            <a href="/story/3">story 3</a>
-            <p><a href="/logout">Log out</a></p>
-          </div>
-        </div>
-        <% } else { -%>
-          <%# login.ejs -%>
-            <div class="login-page">
-              <div class="form">
-                <form action="/login" method="post" class="login-form">
-                  <input type="text" placeholder="username" name="username" />
-                  <input type="password" placeholder="password" name="password" />
-                  <button>login</button>
-                  <p class="message">
-                    <% if(locals.login_failed) { -%>
-                      <h4 class="warning">Try any username & letmein for password...</h4>
-                      <% } -%>
-                        Not registered? <a href="/logout">Create an account</a>
-                  </p>
-                </form>
-              </div>
-            </div>
-            <% } -%>
-
-</body>
-
-</html>
+    </div>
+  </div>
+</div>

@@ -14,17 +14,20 @@
     ],
     "env": {
       "PORT": 5000,
-      "DEBUG": "justexp:*",
+      "DEBUG": "app:*",
       "NODE_ENV": "development"
     }
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
+    "debug": "^4.3.4",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "helmet": "^7.1.0",
+    "http-errors": "^2.0.0",
     "mongoose": "^8.3.3",
+    "morgan": "^1.10.0",
     "nunjucks": "^3.2.4",
     "paseto": "^3.1.4"
   },

@@ -2,13 +2,19 @@ import express from "express";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import { getAbsolutePath } from "./utils/esm-path.js"; // from node21 not needed
+import debug from "debug";
+import logger from "morgan";
+import createError from "http-errors";
+
+const dbg = debug("app:srv");
 
 const app = express();
+app.use(logger("short"));
 app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        "script-src": ["'self'", "example.com"],
+        "script-src": ["'self'", "cdnjs.cloudflare.com"],
       },
     },
   })
@@ -22,36 +28,44 @@ app.set("views", getAbsolutePath(import.meta.url, "views"));
 app.set("view engine", "ejs");
 // https://stackoverflow.com/questions/39781767/using-nunjucks-in-an-express-app
 
-app
-  .get("/", async (req, res) => {
-    let username = req.cookies.username;
-    let logged_in = username ? true : false;
-    let login_failed = req.query.loginfailed;
-    res.render("index", { logged_in, login_failed, username });
-  })
-  .get("/story/:storyId", async (req, res) => {
-    const story_id = req.params.storyId;
-    res.render("index", { story_id });
-  })
-  .post("/login", async (req, res) => {
-    const { password, username } = req.body;
-    if (password === "letmein" && username.trim() !== "") {
-      res.cookie("username", username, {
-        maxAge: 3600 * 1000,
-        httpOnly: true,
-      });
- 
-      res.redirect("/");
-    } else {
-      res.redirect("/?loginfailed=1");
-    }
-    // console.log("pass should be letmein...");
-  })
-  .get("/logout", async (req, res) => {
-    res.clearCookie("username");
-    res.redirect("/");
-  });
+// MAIN routes
+//--------------
+app.get("/", async (req, res) => {
+  res.render("index", {});
+});
 
-app.listen(process.env.PORT || 3000, () =>
-  console.log(`listening at ::1:${process.env.PORT || 3000}`)
-);
+// ERROR HANDLERS
+app.use((req, res, next) => next(createError(404)));
+app.use((err, req, res, next) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.status(err.status || 500);
+  res.render("error");
+});
+
+const srv = app.listen(process.env.PORT || 3000, () => {
+  dbg(`listening at ::1:${process.env.PORT || 3000}`);
+});
+
+srv.onError = (error) => {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+
+  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+};
