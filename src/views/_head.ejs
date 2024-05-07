@@ -18,32 +18,27 @@
 
 <body>
 
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-light bg-light navbar-expand-md mb-4">
     <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/">The New IMDB</a>
+      <a class="navbar-brand" href="/">The New IMDB</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navDropdown"
+        aria-controls="navDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navDropdown">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="/favorites">Favorites</a></li>
+        </ul>
+        <form class="d-flex" action="/" method="get">
+          <select value="<%= locals.category %>" name="cat" class="form-select me-2">
+            <option value="movie">Title</option>
+            <option value="person" <% if(locals.ategory=='person' ) { %>selected<% } -%>>Actor</option>
+          </select>
+          <input class="form-control me-2" value="<%= locals.search %>" type="search" placeholder="Search" name="s" />
+          <input type="submit" class="btn btn-outline-success" />
+        </form>
       </div>
-      <ul class="nav navbar-nav">
-        <li><a href="/login">Login</a></li>
-        <li><a href="/favorites">Favorites</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <form action="/search?source=hp" method="post" id="search-form" class="form-inline">
 
-            <div class="form-group">
-              <select name="cat" class="form-control" id="cat">
-                <option value="movie">Movie Title</option>
-                <option value="person">Actor</option>
-              </select>
-            </div>
-
-            <input type="text" id="movie" placeholder="Search" name="movieSearch" />
-
-
-            <input type="submit" class="btn btn-primary" />
-          </form>
-        </li>
-      </ul>
     </div>
   </nav>

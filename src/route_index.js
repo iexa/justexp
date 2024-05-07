@@ -10,17 +10,31 @@ route.use((req, res, next) => {
 });
 
 route
+  // handle home and main search
   .get("/", async (req, res) => {
-    const resp = await fetch(generateApiUrl("movie/now_playing"));
+    const { s: search, cat: category } = req.query;
+    if (category && !["movie", "person"].includes(category)) {
+      next(new Error("Search category must be movie or person."));
+      return;
+    }
+    let url_to_query = generateApiUrl("movie/now_playing");
+    if (category && search) {
+      url_to_query = generateApiUrl(`search/${category}`, { query: search });
+    }
+    const resp = await fetch(url_to_query);
     let data;
     if (resp.ok) {
       data = await resp.json();
     } else {
       data = resp.statusText;
     }
-    res.render("index", { data: data.results });
+    if (category == "person") {
+      data.results = data.results.flatMap((x) => x.known_for);
+    }
     // res.json(data);
+    res.render("index", { data: data.results, category, search });
   })
+  // handle individual movies
   .get("/movie/:id/*", async (req, res, next) => {
     const movie_id = parseInt(req.params.id);
     if (!movie_id) {
