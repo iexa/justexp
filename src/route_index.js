@@ -1,7 +1,8 @@
 import express from "express";
+import asyncify from "express-asyncify";
 import { generateApiUrl } from "./utils/index.js";
 
-const route = express.Router();
+const route = asyncify(express.Router());
 
 route.use((req, res, next) => {
   // add base_img to all routes' template contexts here
@@ -14,8 +15,7 @@ route
   .get("/", async (req, res) => {
     const { s: search, cat: category } = req.query;
     if (category && !["movie", "person"].includes(category)) {
-      next(new Error("Search category must be movie or person."));
-      return;
+      throw new Error("Search category must be a movie or person.");
     }
     let url_to_query = generateApiUrl("movie/now_playing");
     if (category && search) {
@@ -38,16 +38,14 @@ route
   .get("/movie/:id/*", async (req, res, next) => {
     const movie_id = parseInt(req.params.id);
     if (!movie_id) {
-      next(new Error("No movie found."));
-      return;
+      throw new Error("No movie found.");
     }
     const resp = await fetch(generateApiUrl(`movie/${movie_id}`));
     let data;
     if (resp.ok) {
       data = await resp.json();
     } else {
-      next(new Error("No movie data found."));
-      return;
+      throw new Error("No movie data found.");
     }
     // res.json(data);
     res.render("single", { data });

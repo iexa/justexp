@@ -1,12 +1,13 @@
 import express from "express";
+
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import { getAbsolutePath } from "./utils/index.js"; // from node21 not needed
 import debug from "debug";
 import logger from "morgan";
-import createError from "http-errors";
 
 import indexRoute from "./route_index.js";
+import apiRoute from "./route_api.js";
 
 const dbg = debug("app:srv");
 
@@ -34,9 +35,14 @@ app.set("view engine", "ejs");
 // MAIN routes
 //--------------
 app.use("/", indexRoute);
+app.use("/api", apiRoute);
 
 // ERROR HANDLERS
-app.use((req, res, next) => next(createError(404)));
+app.use((req, res, next) => {
+  let x = new Error("Page not found");
+  x.status = 404;
+  next(x);
+});
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;

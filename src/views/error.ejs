@@ -1,12 +1,10 @@
 <%- include("_head") %>
   <div class="container">
-    <h3>Error: </h3>
+    <h4>Error: </h4>
     <div class="border-bottom text-danger">
-      <%= message %>
-    </div>
-    <h2 class="">
       <%= error.status %>
-    </h2>
+        <%= message %>
+    </div><br>
     <pre><%= error.stack %></pre>
   </div>
   <%- include("_foot") %>
