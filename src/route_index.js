@@ -22,13 +22,9 @@ route
       url_to_query = generateApiUrl(`search/${category}`, { query: search });
     }
     const resp = await fetch(url_to_query);
-    let data;
-    if (resp.ok) {
-      data = await resp.json();
-    } else {
-      data = resp.statusText;
-    }
+    let data = resp.ok ? await resp.json() : resp.statusText;
     if (category == "person") {
+      // person search has multiple result arrays
       data.results = data.results.flatMap((x) => x.known_for);
     }
     // res.json(data);
